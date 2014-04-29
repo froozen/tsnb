@@ -21,6 +21,19 @@ class Notebook(object):
         self.name = name
         self.mother = mother
 
+    def get_node(self, pos):
+        node = self.mother
+
+        if len(pos) > 0:
+            for index in pos:
+                if len(node.children) > index:
+                    node = node.children[index]
+
+                else:
+                    return -1
+
+        return node
+
 def init():
     mother = Node("Mother")
     mother.children.append(Node("Child1"))

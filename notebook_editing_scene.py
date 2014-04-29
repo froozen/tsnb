@@ -2,12 +2,10 @@ import curses
 import notebooks
 
 notebook_id = 0
-index = 0
+index = [0]
 handle_input = 0
 
 def handle_input(scr, c):
-    scr.addstr(6, 4, "Yay! v2")
-
     if c == ord("q"):
         return False
 
@@ -30,8 +28,13 @@ def draw_node(scr, node, pos):
 
     scr.move(pos[0], 0)
     scr.clrtoeol()
-    scr.addstr(pos[0], pos[1], node.get_symbol(), curses.color_pair(2))
-    scr.addstr(" %s" % node.name)
+    scr.addstr(pos[0], pos[1], "%s " % node.get_symbol(), curses.color_pair(2))
+
+    #if node is get_selected_node:
+    if node == get_selected_node():
+        scr.addstr(node.name, curses.color_pair(1))
+    else:
+        scr.addstr(node.name)
     
     if node.expanded and len(node.children) > 0:
         for child in node.children:
@@ -41,3 +44,5 @@ def draw_node(scr, node, pos):
     pos[1] -= 2
     return pos
 
+def get_selected_node():
+    return notebooks.notebook_list[notebook_id].get_node(index)
