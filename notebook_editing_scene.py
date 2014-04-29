@@ -44,5 +44,17 @@ def draw_node(scr, node, pos):
     pos[1] -= 2
     return pos
 
+def index_scroll(distance):
+    index[len(index) - 1] += distance
+
+    if index[len(index) - 1] > len(get_node(index[0:len(index) - 1]).children) - 1:
+        index[len(index) - 1] = 0
+    
+    elif index[len(index) - 1] < 0:
+        index[len(index) - 1] = len(get_node(index[0:len(index) - 1]).children) - 1
+
 def get_selected_node():
     return notebooks.notebook_list[notebook_id].get_node(index)
+
+def get_node(pos):
+    return notebooks.notebook_list[notebook_id].get_node(pos)
