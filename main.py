@@ -1,6 +1,7 @@
 #!/usr/bin/python2
 
 import curses
+import scene_handler
 
 handle_input = 0
 
@@ -15,7 +16,6 @@ def main(stdscr):
     notebooks.init()
 
     import notebook_selection_scene
-    handle_input = notebook_selection_scene.handle_input
     notebook_selection_scene.init(stdscr)
     
     run = True
@@ -23,7 +23,8 @@ def main(stdscr):
         stdscr.move(stdscr.getmaxyx()[0] - 1, stdscr.getmaxyx()[1] - 1)
         c = stdscr.getch()
 
-        run = handle_input(stdscr, c)
+        run = scene_handler.handle_input(stdscr, c)
+        stdscr.refresh()
 
 if __name__ == "__main__":
     curses.wrapper(main)

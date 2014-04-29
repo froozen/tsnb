@@ -1,5 +1,7 @@
 import curses
 import notebooks
+import scene_handler
+import notebook_editing_scene
 
 index = 0
 
@@ -13,6 +15,11 @@ def handle_input(scr, c):
 
     elif c == ord("k"):
         move_index(-1)
+
+    elif c == ord("l"):
+        notebook_editing_scene.init(scr, index)
+        scene_handler.handle_input = notebook_editing_scene.handle_input
+        return True
 
     redraw(scr)
 
