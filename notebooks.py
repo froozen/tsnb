@@ -37,6 +37,11 @@ class Notebook(object):
 def init():
     mother = Node("Mother")
     mother.children.append(Node("Child1"))
+    mother.children[0].children.append(Node("Subchild1"))
+    mother.children[0].children.append(Node("Subchild2"))
+    mother.children[0].children.append(Node("Subchild3"))
+    mother.children[0].children.append(Node("Subchild4"))
+
     mother.children.append(Node("Child2"))
     mother.children.append(Node("Child3"))
     mother.children.append(Node("Child4"))
