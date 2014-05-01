@@ -19,10 +19,10 @@ def handle_input(scr, c):
         __toggle_expand()
 
     elif c == ord("a"):
-        from modes import editing
+        __edit_node()
 
-        notebook_editing_scene.mode_handle_input = editing.handle_input
-        editing.init()
+    elif c == ord("o"):
+        __edit_new_node()
 
     elif c == ord("q"):
         return False
@@ -58,3 +58,14 @@ def __index_out():
 
 def __toggle_expand():
     notebook_editing_scene.__get_selected_node().expanded = not notebook_editing_scene.__get_selected_node().expanded 
+
+def __edit_node():
+    from modes import editing
+
+    notebook_editing_scene.mode_handle_input = editing.handle_input
+    editing.init()
+
+def __edit_new_node():
+    notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children.append(Node(""))
+    __index_scroll(1)
+    __edit_node()
