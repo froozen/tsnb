@@ -42,13 +42,12 @@ def __draw_node(scr, node, pos):
     scr.clrtoeol()
     scr.addstr(pos[0], pos[1], "%s " % node.get_symbol(), curses.color_pair(2))
 
-    #if node is __get_selected_node:
     if node == __get_selected_node():
         scr.addstr(node.name, curses.color_pair(1))
     else:
         scr.addstr(node.name)
     
-    if node.expanded and len(node.children) > 0:
+    if (node.expanded or __node_in_path(node, index)) and len(node.children) > 0:
         for child in node.children:
             pos[1] += INDENT
             pos = __draw_node(scr, child, pos)
@@ -65,3 +64,11 @@ def __get_selected_node():
 
 def __get_node(pos):
     return notebooks.notebook_list[notebook_id].get_node(pos)
+
+def __node_in_path(node, path):
+    for i in range(1, len(path)):
+        if __get_node(path[0:i]) == node:
+            return True
+    
+    return False
+
