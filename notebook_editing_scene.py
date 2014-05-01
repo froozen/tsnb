@@ -11,6 +11,10 @@ mode_name = 0
 def handle_input(scr, c):
     ret = mode_handle_input(scr, c)
     __redraw(scr)
+
+    if not ret:
+        notebooks.save_notebooks()
+
     return ret
 
 def init(scr, n_id):
