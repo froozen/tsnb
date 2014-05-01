@@ -24,6 +24,9 @@ def handle_input(scr, c):
     elif c == ord("o"):
         __edit_new_node()
 
+    elif c == ord("d"):
+        notebook_editing_scene.__remove_selected_node()
+
     elif c == ord("q"):
         return False
 
