@@ -2,6 +2,7 @@ import notebook_editing_scene
 from notebooks import *
 
 def handle_input(scr, c):
+
     if c == ord("j"):
         __index_scroll(1)
 
@@ -16,6 +17,15 @@ def handle_input(scr, c):
 
     elif c == ord("t"):
         __toggle_expand()
+
+    elif c == ord("a"):
+        from modes import editing
+
+        notebook_editing_scene.mode_handle_input = editing.handle_input
+        editing.init()
+
+    elif c == ord("q"):
+        return False
 
     return True
 

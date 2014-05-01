@@ -9,9 +9,6 @@ mode_handle_input = 0
 mode_name = 0
 
 def handle_input(scr, c):
-    if c == ord("q"):
-        return False
-
     ret = mode_handle_input(scr, c)
     __redraw(scr)
     return ret

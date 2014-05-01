@@ -2,7 +2,7 @@ notebook_list = []
 
 class Node(object):
     def __init__(self, name):
-        self.expanded = True
+        self.expanded = False
         self.name = name
         self.children = []
 
@@ -48,6 +48,7 @@ class Notebook(object):
 def init():
     mother = Node("Mother")
     mother.children.append(Node("Child1"))
+    mother.children[0].expanded = True
     mother.children[0].children.append(Node("Subchild1"))
     mother.children[0].children.append(Node("Subchild2"))
     mother.children[0].children.append(Node("Subchild3"))
@@ -56,6 +57,8 @@ def init():
     mother.children.append(Node("Child2"))
     mother.children.append(Node("Child3"))
     mother.children.append(Node("Child4"))
+
+    mother.expanded = True
 
     notebook_list.append(Notebook("Notebook1", mother))
     notebook_list.append(Notebook("Notebook2", mother))
