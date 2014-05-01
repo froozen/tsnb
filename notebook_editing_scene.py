@@ -5,11 +5,10 @@ from modes import browsing
 notebook_id = 0
 index = [0]
 
-mode_handle_input = 0
-mode_name = 0
+mode = 0
 
 def handle_input(scr, c):
-    ret = mode_handle_input(scr, c)
+    ret = mode.handle_input(scr, c)
     __redraw(scr)
 
     if not ret:
@@ -19,12 +18,11 @@ def handle_input(scr, c):
 
 def init(scr, n_id):
     global notebook_id
-    global mode_handle_input
+    global mode
 
     notebook_id = n_id
     
-    browsing.init()
-    mode_handle_input = browsing.handle_input
+    mode = browsing
 
     __redraw(scr)
 
@@ -58,7 +56,7 @@ def __draw_node(scr, node, pos):
 
 def __draw_mode(scr):
     global mode_name
-    scr.addstr(scr.getmaxyx()[0] - 1, 0, "--%s--" % mode_name, curses.color_pair(1))
+    scr.addstr(scr.getmaxyx()[0] - 1, 0, "--%s--" % mode.get_name(), curses.color_pair(1))
 
 def __get_selected_node():
     return notebooks.notebook_list[notebook_id].get_node(index)
@@ -78,3 +76,6 @@ def __remove_selected_node():
 
 def __remove_node(pos):
     notebooks.notebook_list[notebook_id].remove_node(pos)
+
+def change_mode(n_mode):
+    mode = n_mode

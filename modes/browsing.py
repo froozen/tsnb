@@ -29,8 +29,8 @@ def handle_input(scr, c):
 
     return True
 
-def init():
-    notebook_editing_scene.mode_name = "BROWSING"
+def get_name():
+    return "BROWSING"
 
 def __index_scroll(distance):
     notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] += distance
@@ -63,8 +63,7 @@ def __toggle_expand():
 def __edit_node():
     from modes import editing
 
-    notebook_editing_scene.mode_handle_input = editing.handle_input
-    editing.init()
+    notebook_editing_scene.mode = editing
 
 def __edit_new_node():
     notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children.append(Node(""))

@@ -12,10 +12,9 @@ def handle_input(scr, c):
     elif c in [27, curses.KEY_ENTER, 10]: #Escape and enter
         from modes import browsing
 
-        notebook_editing_scene.mode_handle_input = browsing.handle_input
-        browsing.init()
+        notebook_editing_scene.mode = browsing
 
     return True
 
-def init():
-    notebook_editing_scene.mode_name = "EDITING"
+def get_name():
+    return "EDITING"
