@@ -1,4 +1,5 @@
 import notebook_editing_scene
+from notebooks import *
 
 def handle_input(scr, c):
     if c == ord("j"):
@@ -31,11 +32,18 @@ def __index_scroll(distance):
         notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1
 
 def __index_in():
-    if len(notebook_editing_scene.__get_selected_node().children) > 0:
+    if len(notebook_editing_scene.__get_selected_node().children) == 0 and not notebook_editing_scene.__get_selected_node().name == "":
+        notebook_editing_scene.__get_selected_node().children.append(Node(""))
+        notebook_editing_scene.index.append(0)
+
+    elif len(notebook_editing_scene.__get_selected_node().children) > 0:
         notebook_editing_scene.index.append(0)
 
 def __index_out():
     if len(notebook_editing_scene.index) > 1:
+        if notebook_editing_scene.__get_selected_node().name == "":
+            notebook_editing_scene.__remove_selected_node()
+
         notebook_editing_scene.index = notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]
 
 def __toggle_expand():

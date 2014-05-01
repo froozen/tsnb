@@ -72,3 +72,8 @@ def __node_in_path(node, path):
     
     return False
 
+def __remove_selected_node():
+    notebooks.notebook_list[notebook_id].remove_node(index)
+
+def __remove_node(pos):
+    notebooks.notebook_list[notebook_id].remove_node(pos)
