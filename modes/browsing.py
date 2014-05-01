@@ -51,7 +51,8 @@ def __index_in():
 
 def __index_out():
     if len(notebook_editing_scene.index) > 1:
-        if notebook_editing_scene.__get_selected_node().name == "":
+        # The only node is "" (temporary node)
+        if notebook_editing_scene.__get_selected_node().name == "" and len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) == 1:
             notebook_editing_scene.__remove_selected_node()
 
         notebook_editing_scene.index = notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]
