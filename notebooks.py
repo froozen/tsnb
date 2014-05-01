@@ -9,9 +9,9 @@ class Node(object):
     def get_symbol(self):
         if len(self.children) > 0:
             if self.expanded:
-                return "+"
-            else:
                 return "-"
+            else:
+                return "+"
 
         else:
             return "*"

@@ -13,6 +13,9 @@ def handle_input(scr, c):
     elif c == ord("h"):
         __index_out()
 
+    elif c == ord("t"):
+        __toggle_expand()
+
     return True
 
 def init():
@@ -34,3 +37,6 @@ def __index_in():
 def __index_out():
     if len(notebook_editing_scene.index) > 1:
         notebook_editing_scene.index = notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]
+
+def __toggle_expand():
+    notebook_editing_scene.__get_selected_node().expanded = not notebook_editing_scene.__get_selected_node().expanded 
