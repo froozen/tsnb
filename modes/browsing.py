@@ -25,7 +25,7 @@ def handle_input(scr, c):
         __edit_new_node()
 
     elif c == ord("d"):
-        notebook_editing_scene.__remove_selected_node()
+        __delete_node()
 
     elif c == ord("q"):
         return False
@@ -72,3 +72,13 @@ def __edit_new_node():
     notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children.append(Node(""))
     notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1
     __edit_node()
+
+def __delete_node():
+    notebook_editing_scene.__remove_selected_node()
+
+    if not len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) > 0:
+        #notebook_editing_scene.index = notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]
+        __index_out()
+
+    if notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] > len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1:
+        notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1
