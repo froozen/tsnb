@@ -4,10 +4,15 @@ import json
 notebook_list = []
 
 class Node(object):
-    def __init__(self, name):
-        self.expanded = False
-        self.name = name
-        self.children = []
+    def __init__(self, name = None):
+        if name == None:
+            self.expanded = True
+            self.name = ""
+            self.children = [Node("")]
+        else:
+            self.expanded = False
+            self.name = name
+            self.children = []
 
     def get_symbol(self):
         if len(self.children) > 0:

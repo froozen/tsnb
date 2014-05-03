@@ -26,5 +26,7 @@ def main(stdscr):
         run = scene_handler.handle_input(stdscr, c)
         stdscr.refresh()
 
+    notebooks.save_notebooks()
+
 if __name__ == "__main__":
     curses.wrapper(main)

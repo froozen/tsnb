@@ -8,6 +8,7 @@ editing = False
 
 def handle_input(scr, c):
     global editing
+    global index
 
     if not editing:
         if c == ord("q"):
@@ -25,6 +26,11 @@ def handle_input(scr, c):
             return True
 
         elif c == ord("a"):
+            editing = True
+
+        elif c == ord("o"):
+            notebooks.notebook_list.append(notebooks.Notebook("", notebooks.Node()))
+            index = len(notebooks.notebook_list) - 1
             editing = True
 
     else:
