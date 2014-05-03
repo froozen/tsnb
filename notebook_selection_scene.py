@@ -14,21 +14,21 @@ def handle_input(scr, c):
         if c == ord("q"):
             return False
 
-        elif c == ord("j"):
+        elif c in [ord("j"), curses.KEY_DOWN]:
             __move_index(1)
 
-        elif c == ord("k"):
+        elif c in [ord("k"), curses.KEY_UP]:
             __move_index(-1)
 
-        elif c == ord("l"):
+        elif c in [ord("l"), curses.KEY_RIGHT]:
             notebook_editing_scene.init(scr, index)
             scene_handler.handle_input = notebook_editing_scene.handle_input
             return True
 
-        elif c == ord("a"):
+        elif c in [ord("a"), curses.KEY_ENTER, 10]:
             editing = True
 
-        elif c == ord("o"):
+        elif c == [ord("o"), ord("n")]:
             notebooks.notebook_list.append(notebooks.Notebook("", notebooks.Node()))
             index = len(notebooks.notebook_list) - 1
             editing = True

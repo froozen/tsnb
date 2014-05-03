@@ -1,30 +1,31 @@
 import notebook_editing_scene
 from notebooks import *
+import curses
 
 def handle_input(scr, c):
 
-    if c == ord("j"):
+    if c in [ord("j"), curses.KEY_DOWN]:
         __index_scroll(1)
 
-    elif c == ord("k"):
+    elif c in [ord("k"), curses.KEY_UP]:
         __index_scroll(-1)
 
-    elif c == ord("l"):
+    elif c in [ord("l"), curses.KEY_RIGHT]:
         __index_in()
 
-    elif c == ord("h"):
+    elif c in [ord("h"), curses.KEY_LEFT]:
         __index_out()
 
     elif c == ord("t"):
         __toggle_expand()
 
-    elif c == ord("a"):
+    elif c in [ord("a"), curses.KEY_ENTER, 10]:
         __edit_node()
 
-    elif c == ord("o"):
+    elif c in [ord("o"), ord("n")]:
         __edit_new_node()
 
-    elif c == ord("d"):
+    elif c in [ord("d"), 330]: #Delete key
         __delete_node()
 
     elif c == ord("q"):
