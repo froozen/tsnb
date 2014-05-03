@@ -18,9 +18,9 @@ For most of the actions there is a vim-like and a "normal" keybind.
 
 | Action              | vim | normal |
 | :------------------ | --: | -----: |
-| Move up             | k   | up     |
-| Move down           | j   | down   |
-| Open notebook       | l   | right  |
+| Move up             | k   | Up     |
+| Move down           | j   | Down   |
+| Open notebook       | l   | Right  |
 | Edit name           | a   | Enter  |
 | New notebook        | o   | n      |
 | Delete notebook     | d   | Del    |
@@ -30,10 +30,10 @@ For most of the actions there is a vim-like and a "normal" keybind.
 
 | Action                   | vim | normal |
 | :----------------------- | --: | -----: |
-| Move up                  | k   | up     |
-| Move down                | j   | down   |
-| Move up in tree          | h   | left   |
-| Move down in tree        | l   | right  |
+| Move up                  | k   | Up     |
+| Move down                | j   | Down   |
+| Move up in tree          | h   | Left   |
+| Move down in tree        | l   | Right  |
 | Toggle node              | t   | None   |
 | Edit node                | a   | Enter  |
 | New node                 | o   | n      |
