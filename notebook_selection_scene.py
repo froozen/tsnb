@@ -28,10 +28,15 @@ def handle_input(scr, c):
         elif c in [ord("a"), curses.KEY_ENTER, 10]:
             editing = True
 
-        elif c == [ord("o"), ord("n")]:
+        elif c in [ord("o"), ord("n")]:
             notebooks.notebook_list.append(notebooks.Notebook("", notebooks.Node()))
             index = len(notebooks.notebook_list) - 1
             editing = True
+
+        elif c in [ord("d"), 330]: #Delete key
+            notebooks.notebook_list.pop(index)
+            if index == len(notebooks.notebook_list):
+                index -= 1
 
     else:
         if c in range(32, 126): #normal characters
@@ -66,6 +71,7 @@ def __move_index(n):
         index = len(notebooks.notebook_list) -1
 
 def __redraw(scr):
+    scr.clear()
     __draw_notebooks(scr)
     __draw_mode(scr)
 
