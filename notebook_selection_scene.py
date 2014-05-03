@@ -4,24 +4,41 @@ import scene_handler
 import notebook_editing_scene
 
 index = 0
+editing = False
 
 def handle_input(scr, c):
+    global editing
 
-    if c == ord("q"):
-        return False
+    if not editing:
+        if c == ord("q"):
+            return False
 
-    elif c == ord("j"):
-        move_index(1)
+        elif c == ord("j"):
+            __move_index(1)
 
-    elif c == ord("k"):
-        move_index(-1)
+        elif c == ord("k"):
+            __move_index(-1)
 
-    elif c == ord("l"):
-        notebook_editing_scene.init(scr, index)
-        scene_handler.handle_input = notebook_editing_scene.handle_input
-        return True
+        elif c == ord("l"):
+            notebook_editing_scene.init(scr, index)
+            scene_handler.handle_input = notebook_editing_scene.handle_input
+            return True
 
-    redraw(scr)
+        elif c == ord("a"):
+            editing = True
+
+    else:
+        if c in range(32, 126): #normal characters
+            __get_selected_notebook().name += chr(c)
+
+        elif c == curses.KEY_BACKSPACE:
+            __get_selected_notebook().name = __get_selected_notebook().name[0:len(__get_selected_notebook().name) - 1]
+
+        elif c in [27, curses.KEY_ENTER, 10]: #Escape and Enter
+            __get_selected_notebook().mother.name = __get_selected_notebook().name
+            editing = False
+
+    __redraw(scr)
 
     return True
 
@@ -29,9 +46,9 @@ def handle_input(scr, c):
 
 def init(scr):
     scr.clear()
-    redraw(scr)
+    __redraw(scr)
 
-def move_index(n):
+def __move_index(n):
     global index
 
     index += n
@@ -42,10 +59,11 @@ def move_index(n):
     elif index < 0:
         index = len(notebooks.notebook_list) -1
 
-def redraw(scr):
-    draw_notebooks(scr)
+def __redraw(scr):
+    __draw_notebooks(scr)
+    __draw_mode(scr)
 
-def draw_notebooks(scr):
+def __draw_notebooks(scr):
     pos = [2, 2]
 
     for notebook in notebooks.notebook_list:
@@ -60,3 +78,13 @@ def draw_notebooks(scr):
 
         pos[0] += 1
 
+def __draw_mode(scr):
+    if editing:
+        mode = "--EDITING--"
+    else:
+        mode = "--BROWSING--"
+
+    scr.addstr(scr.getmaxyx()[0] - 1, 0, mode[0:scr.getmaxyx()[1] - 1], curses.color_pair(1))
+
+def __get_selected_notebook():
+    return notebooks.notebook_list[index]
