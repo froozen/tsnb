@@ -1,6 +1,8 @@
 import notebook_editing_scene
-from notebooks import *
+import notebook_selection_scene
+import notebooks
 import curses
+import scene_handler
 
 def handle_input(scr, c):
 
@@ -29,7 +31,8 @@ def handle_input(scr, c):
         __delete_node()
 
     elif c == ord("q"):
-        return False
+        notebooks.save_notebooks()
+        scene_handler.scene = notebook_selection_scene
 
     return True
 
@@ -47,7 +50,7 @@ def __index_scroll(distance):
 
 def __index_in():
     if len(notebook_editing_scene.__get_selected_node().children) == 0 and not notebook_editing_scene.__get_selected_node().name == "":
-        notebook_editing_scene.__get_selected_node().children.append(Node(""))
+        notebook_editing_scene.__get_selected_node().children.append(notebooks.Node(""))
         notebook_editing_scene.index.append(0)
 
     elif len(notebook_editing_scene.__get_selected_node().children) > 0:

@@ -20,11 +20,13 @@ def main(stdscr):
     
     run = True
     while run:
+        scene_handler.scene.redraw(stdscr)
+        stdscr.refresh()
+
         stdscr.move(stdscr.getmaxyx()[0] - 1, stdscr.getmaxyx()[1] - 1)
         c = stdscr.getch()
 
-        run = scene_handler.handle_input(stdscr, c)
-        stdscr.refresh()
+        run = scene_handler.scene.handle_input(stdscr, c)
 
     notebooks.save_notebooks()
 

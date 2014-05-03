@@ -22,7 +22,7 @@ def handle_input(scr, c):
 
         elif c in [ord("l"), curses.KEY_RIGHT]:
             notebook_editing_scene.init(scr, index)
-            scene_handler.handle_input = notebook_editing_scene.handle_input
+            scene_handler.scene = notebook_editing_scene
             return True
 
         elif c in [ord("a"), curses.KEY_ENTER, 10]:
@@ -49,15 +49,12 @@ def handle_input(scr, c):
             __get_selected_notebook().mother.name = __get_selected_notebook().name
             editing = False
 
-    __redraw(scr)
-
     return True
 
 
 
 def init(scr):
-    scr.clear()
-    __redraw(scr)
+    pass
 
 def __move_index(n):
     global index
@@ -70,7 +67,7 @@ def __move_index(n):
     elif index < 0:
         index = len(notebooks.notebook_list) -1
 
-def __redraw(scr):
+def redraw(scr):
     scr.clear()
     __draw_notebooks(scr)
     __draw_mode(scr)

@@ -1,3 +1,3 @@
 import notebook_selection_scene
 
-handle_input = notebook_selection_scene.handle_input
+scene = notebook_selection_scene

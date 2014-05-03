@@ -9,7 +9,6 @@ mode = 0
 
 def handle_input(scr, c):
     ret = mode.handle_input(scr, c)
-    __redraw(scr)
 
     if not ret:
         notebooks.save_notebooks()
@@ -24,9 +23,7 @@ def init(scr, n_id):
     
     mode = browsing
 
-    __redraw(scr)
-
-def __redraw(scr):
+def redraw(scr):
     scr.erase()
     pos = [1, 2]
     __display_node_tree(scr, notebooks.notebook_list[notebook_id].mother, pos)
