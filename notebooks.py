@@ -112,7 +112,7 @@ def __load_notebooks():
         notebook_list.append(notebook)
 
 def __dictionaryfy_node(node):
-    node_dictionary = {"name": node.name, "children": []}
+    node_dictionary = {"name": node.name, "children": [], "expanded": node.expanded}
 
     for child in node.children:
         node_dictionary["children"].append(__dictionaryfy_node(child))
@@ -121,6 +121,9 @@ def __dictionaryfy_node(node):
 
 def __nodeify_dictionary(dictionary):
     node = Node(dictionary["name"])
+
+    if "expanded" in dictionary:
+        node.expanded = dictionary["expanded"]
 
     for child in dictionary["children"]:
         node.children.append(__nodeify_dictionary(child))
