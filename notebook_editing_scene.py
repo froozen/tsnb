@@ -107,6 +107,9 @@ def __draw_node(scr, node, pos):
 
 def __draw_node_name(scr, name, is_selected):
     if is_selected:
-        scr.addstr(name, curses.color_pair(1))
+        if mode == editing:
+            scr.addstr(name)
+        else:
+            scr.addstr(name, curses.color_pair(1))
     else:
         scr.addstr(name)

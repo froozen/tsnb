@@ -110,7 +110,10 @@ def __draw_notebooks(scr):
         if pos[0] < scr.getmaxyx()[0] and pos[1] < scr.getmaxyx()[1]:
             notebook_str = ("[ %s ]" % notebook.name)[0:scr.getmaxyx()[1] - pos[1]]
             if notebook is notebooks.notebook_list[index]:
-                scr.addstr(pos[0], pos[1], notebook_str, curses.color_pair(1))
+                if not editing:
+                    scr.addstr(pos[0], pos[1], notebook_str, curses.color_pair(1))
+                else:
+                    scr.addstr(pos[0], pos[1], notebook_str)
                 
                 if editing and (not insert_index == -1):
                     insert_pos = [pos[0], pos[1] + 2 + insert_index]
