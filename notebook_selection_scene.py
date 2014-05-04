@@ -45,12 +45,19 @@ def handle_input(scr, c):
 
     else:
         if c in range(32, 126): #normal characters
-            __get_selected_notebook().name += chr(c)
+            __get_selected_notebook().name = __get_selected_notebook().name[:insert_index] + chr(c) + __get_selected_notebook().name[insert_index:]
             insert_index += 1
 
         elif c == curses.KEY_BACKSPACE:
-            __get_selected_notebook().name = __get_selected_notebook().name[0:len(__get_selected_notebook().name) - 1]
-            insert_index -= 1
+            if not insert_index == 0:
+                __get_selected_notebook().name = __get_selected_notebook().name[:insert_index - 1] + __get_selected_notebook().name[insert_index:]
+                insert_index -= 1
+
+        elif c == 330: # Delete Key
+            if not insert_index == len(__get_selected_notebook().name):
+                __get_selected_notebook().name = __get_selected_notebook().name[:insert_index] + __get_selected_notebook().name[insert_index + 1:]
+                if insert_index > 0:
+                    insert_index -= 1
 
         elif c in [27, curses.KEY_ENTER, 10]: #Escape and Enter
             __get_selected_notebook().mother.name = __get_selected_notebook().name

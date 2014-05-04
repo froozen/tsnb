@@ -9,8 +9,15 @@ def handle_input(scr, c):
         notebook_editing_scene.insert_index += 1
 
     elif c == curses.KEY_BACKSPACE:
-        notebook_editing_scene.__get_selected_node().name = notebook_editing_scene.__get_selected_node().name[0:len(notebook_editing_scene.__get_selected_node().name) - 1]
-        notebook_editing_scene.insert_index -= 1
+        if notebook_editing_scene.insert_index > 0:
+            notebook_editing_scene.__get_selected_node().name = notebook_editing_scene.__get_selected_node().name[:notebook_editing_scene.insert_index - 1] + notebook_editing_scene.__get_selected_node().name[notebook_editing_scene.insert_index:]
+            notebook_editing_scene.insert_index -= 1
+
+    elif c == 330: # Delete Key
+        if not notebook_editing_scene.insert_index == len(notebook_editing_scene.__get_selected_node().name):
+            notebook_editing_scene.__get_selected_node().name = notebook_editing_scene.__get_selected_node().name[:notebook_editing_scene.insert_index] + notebook_editing_scene.__get_selected_node().name[notebook_editing_scene.insert_index + 1:]
+            if notebook_editing_scene.insert_index > 0:
+                notebook_editing_scene.insert_index -= 1
 
     elif c == curses.KEY_LEFT:
         if notebook_editing_scene.insert_index > 0:
