@@ -1,9 +1,12 @@
 import curses
 import notebooks
 from modes import browsing
+from modes import editing
 
 notebook_id = 0
 index = [0]
+insert_index = -1
+insert_pos = [0, 0]
 
 mode = 0
 
@@ -29,6 +32,10 @@ def redraw(scr):
     pos = [1, 2]
     __display_node_tree(scr, notebooks.notebook_list[notebook_id].mother, pos)
     __draw_mode(scr)
+    if insert_index == -1:
+        scr.move(scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1)
+    else:
+        scr.move(insert_pos[0], insert_pos[1])
 
 def __display_node_tree(scr, node, pos):
     INDENT = 4
@@ -73,6 +80,8 @@ def change_mode(n_mode):
     mode = n_mode
 
 def __draw_node(scr, node, pos):
+    global insert_pos
+
     scr_max_pos = scr.getmaxyx()
     max_pos = []
     max_pos.append(scr_max_pos[0] - 1)
@@ -86,6 +95,10 @@ def __draw_node(scr, node, pos):
             scr.move(pos[0], pos[1])
             scr.addstr("%s " % node.get_symbol(), curses.color_pair(2))
             __draw_node_name(scr, node.name[0:space - symb_len], node == __get_selected_node()) 
+            
+            if node == __get_selected_node() and mode == editing:
+                if insert_index < space - symb_len and insert_index > -1:
+                    insert_pos = [pos[0], pos[1] + symb_len + insert_index]
 
 def __draw_node_name(scr, name, is_selected):
     if is_selected:

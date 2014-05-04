@@ -71,6 +71,7 @@ def redraw(scr):
     scr.clear()
     __draw_notebooks(scr)
     __draw_mode(scr)
+    scr.move(scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1)
 
 def __draw_notebooks(scr):
     pos = [2, 2]

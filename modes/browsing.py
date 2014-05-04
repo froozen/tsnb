@@ -72,6 +72,7 @@ def __edit_node():
     from modes import editing
 
     notebook_editing_scene.mode = editing
+    notebook_editing_scene.insert_index = len(notebook_editing_scene.__get_selected_node().name)
 
 def __edit_new_node():
     notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children.append(notebooks.Node(""))
