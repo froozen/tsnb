@@ -2,6 +2,7 @@ import os
 import json
 
 notebook_list = []
+file_path = None
 
 class Node(object):
     def __init__(self, name = None):
@@ -53,9 +54,15 @@ class Notebook(object):
         if len(node.children) > pos[len(pos) - 1]:
             node.children.pop(pos[len(pos) - 1])
 
-def init():
-    home = os.path.expanduser("~")
-    if os.path.exists(home + "/.tsnb"):
+def init(file_name):
+    global file_path
+    if file_name == None:
+        home = os.path.expanduser("~")
+        file_path = home + "/.tsnb"
+    else:
+        file_path = file_name
+        
+    if os.path.exists(file_path):
         __load_notebooks()
 
     else:
@@ -82,8 +89,7 @@ def __default():
     notebook_list.append(Notebook("Notebook2", mother))
 
 def save_notebooks():
-    home = os.path.expanduser("~")
-    f = open(home + "/.tsnb", "w")
+    f = open(file_path, "w")
 
     json_notebook_list = []
 
@@ -95,8 +101,7 @@ def save_notebooks():
     f.close()
 
 def __load_notebooks():
-    home = os.path.expanduser("~")
-    f = open(home + "/.tsnb", "r")
+    f = open(file_path, "r")
 
     json_notebook_list = json.loads(f.read())
 

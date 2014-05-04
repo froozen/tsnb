@@ -39,3 +39,13 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | New node                 | o   | n      |
 | Delete node              | d   | Del    |
 | Go to notebook selection |     | q      |
+
+## Commandline options
+
+tsnb provides a bunch of handy commandline options:
+
+| Modifider        | Use                                                                                                  |
+| :--------------- | :--------------------------------------------------------------------------------------------------- |
+| -f <filename>    | Save and load from <filename> (default: ~/.tsnb)                                                     |
+| -n <notebook id> | Start tsnb in notebook editing mode of notebook with id <notebook id> (Note that the ids start at 0) |
+
