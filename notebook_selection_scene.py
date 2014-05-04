@@ -76,14 +76,16 @@ def __draw_notebooks(scr):
     pos = [2, 2]
 
     for notebook in notebooks.notebook_list:
-        scr.move(pos[0], 0)
-        scr.clrtoeol()
+        if pos[0] < scr.getmaxyx()[0] and pos[1] < scr.getmaxyx()[1]:
+            scr.move(pos[0], 0)
+            scr.clrtoeol()
 
-        if notebook is notebooks.notebook_list[index]:
-            scr.addstr(pos[0], pos[1], "[ %s ]" % notebook.name, curses.color_pair(1))
+            notebook_str = ("[ %s ]" % notebook.name)[0:scr.getmaxyx()[1] - pos[1]]
+            if notebook is notebooks.notebook_list[index]:
+                scr.addstr(pos[0], pos[1], notebook_str, curses.color_pair(1))
 
-        else:
-            scr.addstr(pos[0], pos[1], "[ %s ]" % notebook.name)
+            else:
+                scr.addstr(pos[0], pos[1], notebook_str)
 
         pos[0] += 1
 
