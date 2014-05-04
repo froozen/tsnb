@@ -17,7 +17,7 @@ def parse(args):
                 file_name = args[i + 1]
                 i += 1
             else:
-                print "Error: filename expected after -f"
+                print("Error: filename expected after -f")
                 failed = True
         
         elif args[i] == "-n":
@@ -25,12 +25,12 @@ def parse(args):
                 try:
                     notebook_id = int(args[i + 1])
                 except ValueError:
-                    print "Error: invalid argument after -n: %s" % args[i + 1]
+                    print("Error: invalid argument after -n: %s" % args[i + 1])
                     failed = True
 
                 i += 1
             else :
-                print "Error: id expected after -n"
+                print("Error: id expected after -n")
                 failed = True
 
         i += 1
@@ -46,7 +46,7 @@ def parse(args):
         if notebook_id < len(notebooks.notebook_list) and notebook_id > -1:
             parsed_args.notebook_id = notebook_id
         else:
-            print "Error: notebook id out of bounds"
+            print("Error: notebook id out of bounds")
             parsed_args.failed = True
             return parsed_args
 
