@@ -46,13 +46,14 @@ class Notebook(object):
     def remove_node(self, pos):
         node = self.mother
 
-        if len(pos) > 1:
-            for index in pos[0:len(pos) - 1]:
-                if len(node.children) > index:
-                    node = node.children[index]
+        if not (len(pos) == 1 and len(self.mother.children) == 1):
+            if len(pos) > 1:
+                for index in pos[0:len(pos) - 1]:
+                    if len(node.children) > index:
+                        node = node.children[index]
 
-        if len(node.children) > pos[len(pos) - 1]:
-            node.children.pop(pos[len(pos) - 1])
+            if len(node.children) > pos[len(pos) - 1]:
+                node.children.pop(pos[len(pos) - 1])
 
 def init(file_name):
     global file_path
