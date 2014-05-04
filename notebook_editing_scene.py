@@ -18,9 +18,10 @@ def handle_input(scr, c):
 def init(scr, n_id):
     global notebook_id
     global mode
+    global index
 
     notebook_id = n_id
-    
+    index = [0]
     mode = browsing
 
 def redraw(scr):
