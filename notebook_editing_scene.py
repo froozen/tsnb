@@ -26,16 +26,18 @@ def init(scr, n_id):
     notebook_id = n_id
     index = [0]
     mode = browsing
+    insert_pos = [scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1]
 
 def redraw(scr):
     scr.erase()
     pos = [1, 2]
     __display_node_tree(scr, notebooks.notebook_list[notebook_id].mother, pos)
     __draw_mode(scr)
-    if insert_index == -1:
-        scr.move(scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1)
-    else:
+
+    if (not insert_index == -1) and scr.getmaxyx()[0] > insert_pos[0] and scr.getmaxyx()[1] > insert_pos[1]:
         scr.move(insert_pos[0], insert_pos[1])
+    else:
+        scr.move(scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1)
 
 def __display_node_tree(scr, node, pos):
     INDENT = 4
@@ -99,6 +101,9 @@ def __draw_node(scr, node, pos):
             if node == __get_selected_node() and mode == editing:
                 if insert_index < space - symb_len and insert_index > -1:
                     insert_pos = [pos[0], pos[1] + symb_len + insert_index]
+
+                else:
+                    insert_pos = [scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1]
 
 def __draw_node_name(scr, name, is_selected):
     if is_selected:
