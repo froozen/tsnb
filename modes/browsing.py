@@ -3,6 +3,7 @@ import notebook_selection_scene
 import notebooks
 import curses
 import scene_handler
+import copy
 
 clipboard = 0
 
@@ -99,7 +100,7 @@ def __delete_node():
 
 def __paste_node():
     if not type(clipboard) == int:
-        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1] + 1, clipboard)
+        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1] + 1, copy.deepcopy(clipboard))
         __index_scroll(1)
 
 def __yank_node():
