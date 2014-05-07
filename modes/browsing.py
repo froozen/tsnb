@@ -35,6 +35,9 @@ def handle_input(scr, c):
     elif c == ord("p"):
         __paste_node()
 
+    elif c == ord("y"):
+        __yank_node()
+
     elif c == ord("q"):
         notebooks.save_notebooks()
         scene_handler.scene = notebook_selection_scene
@@ -71,7 +74,7 @@ def __index_out():
         notebook_editing_scene.index = notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]
 
 def __toggle_expand():
-    notebook_editing_scene.__get_selected_node().expanded = not notebook_editing_scene.__get_selected_node().expanded 
+    otebook_editing_scene.__get_selected_node().expanded = not notebook_editing_scene.__get_selected_node().expanded 
 
 def __edit_node():
     from modes import editing
@@ -98,3 +101,7 @@ def __paste_node():
     if not type(clipboard) == int:
         notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1] + 1, clipboard)
         __index_scroll(1)
+
+def __yank_node():
+    global clipboard
+    clipboard = notebook_editing_scene.__get_selected_node()

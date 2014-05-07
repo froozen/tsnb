@@ -38,6 +38,7 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | Edit node                | a   | Enter  |
 | New node                 | o   | n      |
 | Delete / Cut node        | d   | Del    |
+| Yank / Copy node         | y   |        |
 | Pase Node                | p   |        |
 | Go to notebook selection |     | q      |
 
