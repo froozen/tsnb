@@ -37,7 +37,8 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | Toggle node              | t   | None   |
 | Edit node                | a   | Enter  |
 | New node                 | o   | n      |
-| Delete node              | d   | Del    |
+| Delete / Cut node        | d   | Del    |
+| Pase Node                | p   |        |
 | Go to notebook selection |     | q      |
 
 ## Commandline options

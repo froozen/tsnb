@@ -4,6 +4,8 @@ import notebooks
 import curses
 import scene_handler
 
+clipboard = 0
+
 def handle_input(scr, c):
 
     if c in [ord("j"), curses.KEY_DOWN]:
@@ -29,6 +31,9 @@ def handle_input(scr, c):
 
     elif c in [ord("d"), 330]: #Delete key
         __delete_node()
+
+    elif c == ord("p"):
+        __paste_node()
 
     elif c == ord("q"):
         notebooks.save_notebooks()
@@ -80,10 +85,16 @@ def __edit_new_node():
     __edit_node()
 
 def __delete_node():
-    notebook_editing_scene.__remove_selected_node()
+    global clipboard
+    clipboard = notebook_editing_scene.__remove_selected_node()
 
     if not len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) > 0:
         __index_out()
 
     if notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] > len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1:
         notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1
+
+def __paste_node():
+    if not type(clipboard) == int:
+        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1] + 1, clipboard)
+        __index_scroll(1)

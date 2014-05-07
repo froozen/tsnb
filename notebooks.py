@@ -53,7 +53,9 @@ class Notebook(object):
                         node = node.children[index]
 
             if len(node.children) > pos[len(pos) - 1]:
-                node.children.pop(pos[len(pos) - 1])
+                return node.children.pop(pos[len(pos) - 1])
+        
+        return -1
 
 def init(file_name):
     global file_path
