@@ -100,9 +100,17 @@ def __delete_node():
 
 def __paste_node():
     if not type(clipboard) == int:
+        if len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1:
+            if notebook_editing_scene.__get_selected_node().name == "":
+                notebook_editing_scene.__remove_selected_node()
+            else:
+                __index_scroll(1)
+
+        else:
+            __index_scroll(1)
+
         notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1] + 1, copy.deepcopy(clipboard))
-        __index_scroll(1)
 
 def __yank_node():
     global clipboard
-    clipboard = notebook_editing_scene.__get_selected_node()
+    clipboard = copy.deepcopy(notebook_editing_scene.__get_selected_node())
