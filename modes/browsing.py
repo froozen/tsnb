@@ -75,7 +75,7 @@ def __index_out():
         notebook_editing_scene.index = notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]
 
 def __toggle_expand():
-    otebook_editing_scene.__get_selected_node().expanded = not notebook_editing_scene.__get_selected_node().expanded 
+    notebook_editing_scene.__get_selected_node().expanded = not notebook_editing_scene.__get_selected_node().expanded 
 
 def __edit_node():
     from modes import editing
