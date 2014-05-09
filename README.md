@@ -39,7 +39,7 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | New node                 | o   | n      |
 | Delete / Cut node        | d   | Del    |
 | Yank / Copy node         | y   |        |
-| Pase Node                | p   |        |
+| Paste Node               | p   |        |
 | Go to notebook selection |     | q      |
 
 ## Commandline options
