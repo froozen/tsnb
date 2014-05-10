@@ -48,6 +48,7 @@ def redraw(scr):
 
 def __display_node_tree(scr, node, pos):
     # Call __draw_node for self and __display_node_tree for children
+
     INDENT = 4
     
     # Move one step down
@@ -64,6 +65,37 @@ def __display_node_tree(scr, node, pos):
     # Remove indent
     pos[1] -= INDENT
     return pos
+
+def __draw_node(scr, node, pos):
+    # Draw Node at <pos>
+
+    global insert_pos
+
+    scr_max_pos = scr.getmaxyx()
+    max_pos = []
+    max_pos.append(scr_max_pos[0] - 1)
+    max_pos.append(scr_max_pos[1] - 1)
+
+    # <pos> is not outside of screen
+    if not pos[0] >= max_pos[0] or pos[1] >= max_pos[1]:
+        space = max_pos[1] - pos[1] + 1
+        symb_len = len(node.get_symbol()) + 1
+
+        # There is enough space to display the Node.get_symbol()
+        if symb_len < space:
+            scr.move(pos[0], pos[1])
+            scr.addstr("%s " % node.get_symbol(), curses.color_pair(2))
+            __draw_node_name(scr, node.name[0:space - symb_len], node == __get_selected_node()) 
+            
+            # Node is selected_node and mode is editing
+            if node == __get_selected_node() and mode == editing:
+                # Set insert_pos correctly
+
+                if insert_index < space - symb_len and insert_index > -1:
+                    insert_pos = [pos[0], pos[1] + symb_len + insert_index]
+
+                else:
+                    insert_pos = [scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1]
 
 def __draw_mode(scr):
     # Draw modename
@@ -100,37 +132,6 @@ def __remove_node(pos):
     # Remove the Node at <pos>
 
     notebooks.notebook_list[notebook_id].remove_node(pos)
-
-def __draw_node(scr, node, pos):
-    # Draw Node at <pos>
-
-    global insert_pos
-
-    scr_max_pos = scr.getmaxyx()
-    max_pos = []
-    max_pos.append(scr_max_pos[0] - 1)
-    max_pos.append(scr_max_pos[1] - 1)
-
-    # <pos> is not outside of screen
-    if not pos[0] >= max_pos[0] or pos[1] >= max_pos[1]:
-        space = max_pos[1] - pos[1] + 1
-        symb_len = len(node.get_symbol()) + 1
-
-        # There is enough space to display the Node.get_symbol()
-        if symb_len < space:
-            scr.move(pos[0], pos[1])
-            scr.addstr("%s " % node.get_symbol(), curses.color_pair(2))
-            __draw_node_name(scr, node.name[0:space - symb_len], node == __get_selected_node()) 
-            
-            # Node is selected_node and mode is editing
-            if node == __get_selected_node() and mode == editing:
-                # Set insert_pos correctly
-
-                if insert_index < space - symb_len and insert_index > -1:
-                    insert_pos = [pos[0], pos[1] + symb_len + insert_index]
-
-                else:
-                    insert_pos = [scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1]
 
 def __draw_node_name(scr, name, is_selected):
     # Draw Node.name

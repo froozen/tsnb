@@ -140,6 +140,7 @@ def __draw_notebooks(scr):
             if notebook is notebooks.notebook_list[index]:
                 if not editing:
                     scr.addstr(pos[0], pos[1], notebook_str, curses.color_pair(1))
+
                 else:
                     scr.addstr(pos[0], pos[1], notebook_str)
                 
