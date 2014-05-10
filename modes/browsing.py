@@ -51,15 +51,11 @@ def get_name():
 def __index_scroll(distance):
     # Scroll <distance> indexes down (negative means up)
 
-    notebook_editing_scene.index[-1] += distance
+    parent_node = notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1])
 
-    # index > max_index
-    if notebook_editing_scene.index[-1] > len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) - 1:
-        notebook_editing_scene.index[-1] = 0
-    # index < 0 
-    elif notebook_editing_scene.index[-1] < 0:
-        # set index to max_index
-        notebook_editing_scene.index[-1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) - 1
+    # index in acceptable range
+    if notebook_editing_scene.index[-1] + distance in range(0, len(parent_node.children)):
+        notebook_editing_scene.index[-1] += distance
 
 def __index_in():
     # Move down in hierarchy
