@@ -16,6 +16,8 @@ class Node(object):
             self.children = []
 
     def get_symbol(self):
+        # Return the correct symbol to display in front of Node.name
+
         if len(self.children) > 0:
             if self.expanded:
                 return "-"
@@ -31,6 +33,8 @@ class Notebook(object):
         self.mother = mother
 
     def get_node(self, pos):
+        # Return Node at <pos>
+
         node = self.mother
 
         if len(pos) > 0:
@@ -44,6 +48,8 @@ class Notebook(object):
         return node
     
     def remove_node(self, pos):
+        # Delete Node at <pos> and return it
+
         node = self.mother
 
         if not (len(pos) == 1 and len(self.mother.children) == 1):
@@ -60,6 +66,7 @@ class Notebook(object):
 def init(file_name):
     global file_path
     if file_name == None:
+        # Set filepath to standard path
         home = os.path.expanduser("~")
         file_path = home + "/.tsnb"
     else:
@@ -74,6 +81,8 @@ def init(file_name):
 
 
 def __default():
+    # Create default notebooks
+
     mother = Node("Mother")
     mother.children.append(Node("Child1"))
     mother.children[0].expanded = True
@@ -92,6 +101,8 @@ def __default():
     notebook_list.append(Notebook("Notebook2", mother))
 
 def save_notebooks():
+    # Save notebooks using the json file format
+
     f = open(file_path, "w")
 
     json_notebook_list = []
@@ -104,6 +115,8 @@ def save_notebooks():
     f.close()
 
 def __load_notebooks():
+    # Load notebooks from file
+
     f = open(file_path, "r")
 
     json_notebook_list = json.loads(f.read())
@@ -114,6 +127,8 @@ def __load_notebooks():
         notebook_list.append(notebook)
 
 def __dictionaryfy_node(node):
+    # Return a dictionary representing <node>
+
     node_dictionary = {"name": node.name, "children": [], "expanded": node.expanded}
 
     for child in node.children:
@@ -122,6 +137,8 @@ def __dictionaryfy_node(node):
     return node_dictionary
 
 def __nodeify_dictionary(dictionary):
+    # Return a Node representing <dictionary>
+
     node = Node(dictionary["name"])
 
     if "expanded" in dictionary:

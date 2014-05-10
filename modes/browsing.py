@@ -49,70 +49,96 @@ def get_name():
     return "BROWSING"
 
 def __index_scroll(distance):
-    notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] += distance
+    # Scroll <distance> indexes down (negative means up)
 
-    if notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] > len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1:
-        notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] = 0
-    
-    elif notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] < 0:
-        notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1
+    notebook_editing_scene.index[-1] += distance
+
+    # index > max_index
+    if notebook_editing_scene.index[-1] > len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) - 1:
+        notebook_editing_scene.index[-1] = 0
+    # index < 0 
+    elif notebook_editing_scene.index[-1] < 0:
+        # set index to max_index
+        notebook_editing_scene.index[-1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) - 1
 
 def __index_in():
+    # Move down in hierarchy
+
+    # Node has no children and is not nameless
     if len(notebook_editing_scene.__get_selected_node().children) == 0 and not notebook_editing_scene.__get_selected_node().name == "":
+        # Add temporary node
         notebook_editing_scene.__get_selected_node().children.append(notebooks.Node(""))
         notebook_editing_scene.index.append(0)
 
+    # Node has children
     elif len(notebook_editing_scene.__get_selected_node().children) > 0:
         notebook_editing_scene.index.append(0)
 
 def __index_out():
-    if len(notebook_editing_scene.index) > 1:
-        # The only node is "" (temporary node)
-        if len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) == 1:
-            if notebook_editing_scene.__get_selected_node().name == "":
-                notebook_editing_scene.__remove_selected_node()
+    # Move up in hierarchy
 
-        notebook_editing_scene.index = notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]
+    # Node is not child of notebook.mother
+    if len(notebook_editing_scene.index) > 1:
+        # Node is temporary node
+        if len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1 and notebook_editing_scene.__get_selected_node().name == "":
+            notebook_editing_scene.__remove_selected_node()
+
+        notebook_editing_scene.index = notebook_editing_scene.index[:-1]
 
 def __toggle_expand():
+    # Invert node.expanded
+
     notebook_editing_scene.__get_selected_node().expanded = not notebook_editing_scene.__get_selected_node().expanded 
 
 def __edit_node():
+    # Enter editing mode
+    
     from modes import editing
 
     notebook_editing_scene.mode = editing
     notebook_editing_scene.insert_index = len(notebook_editing_scene.__get_selected_node().name)
 
 def __edit_new_node():
-    #  not temporary node
+    # Add new node, if there is no temporary node and enter editing mode
+
+    # Node is not a temporary node
     if not (notebook_editing_scene.__get_selected_node().name == "" and len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1):
-        notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children.append(notebooks.Node(""))
-        notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1
+        # Add a new Node
+        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.append(notebooks.Node(""))
+        notebook_editing_scene.index[-1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) - 1
+
     __edit_node()
 
 def __delete_node():
+    # Delete node and put it into clipboard
+
     global clipboard
     clipboard = notebook_editing_scene.__remove_selected_node()
 
-    if not len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) > 0:
+    # Last child was deleted
+    if not len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) > 0:
         __index_out()
 
-    if notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] > len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1:
-        notebook_editing_scene.index[len(notebook_editing_scene.index) - 1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[0:len(notebook_editing_scene.index) - 1]).children) - 1
+    else:
+        __index_scroll(-1)
 
 def __paste_node():
+    # Add deepcopy of clipboard
+
+    # clipboard is not empty(0) or error(-1)
     if not type(clipboard) == int:
-        if len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1:
-            if notebook_editing_scene.__get_selected_node().name == "":
-                notebook_editing_scene.__remove_selected_node()
-            else:
-                __index_scroll(1)
+        # Node is temporary node
+        if len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1 and notebook_editing_scene.__get_selected_node().name == "":
+            notebook_editing_scene.__remove_selected_node()
 
         else:
             __index_scroll(1)
 
+        # Insert deepcopy of clipboard
         notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1] + 1, copy.deepcopy(clipboard))
 
 def __yank_node():
+    # Put deepcopy of node into clipboard
+
     global clipboard
     clipboard = copy.deepcopy(notebook_editing_scene.__get_selected_node())

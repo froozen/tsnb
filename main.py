@@ -16,10 +16,13 @@ def tsnb(stdscr, parsed_args):
     curses.init_pair(2, curses.COLOR_CYAN, -1) # Tree-Symbols
 
     if parsed_args.notebook_id == None:
+        # Start off in notebook_selection_scene
         import notebook_selection_scene
         notebook_selection_scene.init(stdscr)
         scene_handler.scene = notebook_selection_scene
+
     else:
+        # Start off in selected notebook_editing_scene
         import notebook_editing_scene
         notebook_editing_scene.init(stdscr, parsed_args.notebook_id)
         scene_handler.scene = notebook_editing_scene

@@ -6,6 +6,8 @@ class Parsed_args(object):
         self.failed = None
 
 def parse(args):
+    # Parse args into a Parsed_args object and return it
+
     file_name = None
     notebook_id = None
     failed = False
