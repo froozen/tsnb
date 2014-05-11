@@ -43,6 +43,10 @@ def handle_input(scr, c):
         notebooks.save_notebooks()
         scene_handler.scene = notebook_selection_scene
 
+    elif c == ord("Q"):
+        notebooks.save_notebooks()
+        return False
+
     return True
 
 def get_name():

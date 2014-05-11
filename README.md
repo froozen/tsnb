@@ -41,6 +41,7 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | Yank / Copy node         | y   |        |
 | Paste Node               | p   |        |
 | Go to notebook selection |     | q      |
+| Quit tsnb                |     | Q      |
 
 ## Commandline options
 
