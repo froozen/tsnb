@@ -12,7 +12,7 @@ def handle_input(scr, c):
         remove_previous_character()
 
     elif c == 330: # Delete Key
-        remove_selected_character()
+        remove_character_at(insert_index)
 
     elif c == curses.KEY_LEFT:
         move_cursor(-1)
@@ -43,25 +43,20 @@ def insert_character(c):
 def remove_previous_character():
     # Delete character before cursor position
 
-    node_name = notebook_editing_scene.__get_selected_node().name
     insert_index = notebook_editing_scene.insert_index
 
     if notebook_editing_scene.insert_index > 0:
-        set_node_name(node_name[:insert_index - 1] + node_name[insert_index:])
+        remove_character_at(insert_index - 1)
         notebook_editing_scene.insert_index -= 1
 
-def remove_selected_character():
-    # Delete character at cursor position
+def remove_character_at(index):
+    # Remove the character at <index>
 
     node_name = notebook_editing_scene.__get_selected_node().name
-    insert_index = notebook_editing_scene.insert_index
 
-    if not notebook_editing_scene.insert_index == len(notebook_editing_scene.__get_selected_node().name):
-        set_node_name(node_name[:insert_index] + node_name[insert_index + 1:])
-
-        if notebook_editing_scene.insert_index > 0:
-            notebook_editing_scene.insert_index -= 1
-
+    if index > -1:
+        set_node_name(node_name[:index] + node_name[index + 1:])
+ 
 def move_cursor(n):
     # Move cursor <n> steps to the right (negative means left)
 
@@ -71,7 +66,7 @@ def move_cursor(n):
         notebook_editing_scene.insert_index += n
 
 def exit_editing_mode():
-    # Exit editing mode
+# Exit editing mode
 
     from modes import browsing
 
