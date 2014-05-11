@@ -15,10 +15,7 @@ mode = 0
 
 def handle_input(scr, c):
     ret = mode.handle_input(scr, c)
-
-    # Program is about to be closed
-    if not ret:
-        notebooks.save_notebooks()
+    notebooks.notebook_list[notebook_id].index = index
 
     return ret
 
@@ -28,9 +25,9 @@ def init(scr, n_id):
     global index
 
     notebook_id = n_id
-    index = [0]
     mode = browsing
     insert_pos = [scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1]
+    index = notebooks.notebook_list[n_id].index
 
 def redraw(scr):
     # Redraw the scene

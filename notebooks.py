@@ -31,6 +31,7 @@ class Notebook(object):
     def __init__(self, name, mother):
         self.name = name
         self.mother = mother
+        self.index = [0]
 
     def get_node(self, pos):
         # Return Node at <pos>
