@@ -6,6 +6,7 @@ import scene_handler
 import copy
 
 clipboard = 0
+saved = False
 
 def handle_input(scr, c):
 
@@ -39,6 +40,9 @@ def handle_input(scr, c):
     elif c == ord("y"):
         __yank_node()
 
+    elif c in [ord("s"), curses.KEY_F2]:
+        __save_notebooks()
+
     elif c == ord("q"):
         notebooks.save_notebooks()
         scene_handler.scene = notebook_selection_scene
@@ -51,6 +55,16 @@ def handle_input(scr, c):
 
 def get_name():
     return "BROWSING"
+
+def draw_mode(scr):
+    global saved
+
+    if saved:
+        scr.move(0, 0)
+        save_str = (" Saved notebooks to %s" % notebooks.file_path)[:scr.getmaxyx()[0] - 1]
+        scr.addstr(save_str, curses.color_pair(2))
+        notebook_editing_scene.__place_cursor(scr)
+        saved = False
 
 def __index_scroll(distance):
     # Scroll <distance> indexes down (negative means up)
@@ -142,3 +156,11 @@ def __yank_node():
 
     global clipboard
     clipboard = copy.deepcopy(notebook_editing_scene.__get_selected_node())
+
+def __save_notebooks():
+    # Save notebooks
+
+    global saved
+
+    notebooks.save_notebooks()
+    saved = True

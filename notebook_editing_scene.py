@@ -35,6 +35,13 @@ def redraw(scr):
     scr.erase()
     __display_node_tree(scr)
     __draw_mode(scr)
+    __place_cursor(scr)
+
+    if "draw_mode" in dir(mode):
+        mode.draw_mode(scr)
+
+def __place_cursor(scr):
+    # Move the cursor to the correct position
 
     # cursor should be moved to insert_pos
     if (not insert_index == -1) and scr.getmaxyx()[0] > insert_pos[0] and scr.getmaxyx()[1] > insert_pos[1]:

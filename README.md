@@ -40,6 +40,7 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | Delete / Cut node        | d   | Del    |
 | Yank / Copy node         | y   |        |
 | Paste Node               | p   |        |
+| Save notebooks           | s   | F2     |
 | Go to notebook selection |     | q      |
 | Quit tsnb                |     | Q      |
 
