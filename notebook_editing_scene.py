@@ -1,4 +1,5 @@
 import curses
+import math
 import notebooks
 from modes import browsing
 from modes import editing
@@ -35,8 +36,7 @@ def redraw(scr):
     # Redraw the scene
 
     scr.erase()
-    pos = [1, 2]
-    __display_node_tree(scr, notebooks.notebook_list[notebook_id].mother, pos)
+    __display_node_tree(scr)
     __draw_mode(scr)
 
     # cursor should be moved to insert_pos
@@ -46,35 +46,52 @@ def redraw(scr):
     else:
         scr.move(scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1)
 
-def __display_node_tree(scr, node, pos):
-    # Call __draw_node for self and __display_node_tree for children
+def __display_node_tree(scr):
+    # Draw smart range of node tree
 
-    INDENT = 4
-    
-    # Move one step down
-    pos[0] += 1
-    __draw_node(scr, node, pos)
+    node_list = []
+    __generate_node_list(notebooks.notebook_list[notebook_id].mother, node_list, 0)
 
-    # Node has children and they should be drawn
-    if (node.expanded or __node_in_path(node, index)) and len(node.children) > 0:
-        for child in node.children:
-            # Apply indent
-            pos[1] += INDENT
-            pos = __display_node_tree(scr, child, pos)
+    selected_index = __index_in_node_list(node_list, __get_selected_node())
+    max_node_count = scr.getmaxyx()[0] - 3
 
-    # Remove indent
-    pos[1] -= INDENT
-    return pos
+    if max_node_count < len(node_list):
+        if 0 > selected_index - math.floor(max_node_count / 2):
+            node_list = node_list[:max_node_count]
 
-def __draw_node(scr, node, pos):
+        elif len(node_list) < selected_index + math.ceil(max_node_count / 2):
+            node_list = node_list[- max_node_count:]
+
+        else:
+            node_list = node_list[selected_index - math.floor(max_node_count / 2) : selected_index + math.ceil(max_node_count / 2)]
+        
+    y = 1
+    for node_struct in node_list:
+        __draw_node(scr, node_struct, y)
+        y += 1
+
+
+def __index_in_node_list(node_list, node):
+    # Return index of struct representing node in node_list
+
+    for struct in node_list:
+        if struct[1] == node:
+            return node_list.index(struct)
+
+    return -1
+
+def __draw_node(scr, node_struct, y):
     # Draw Node at <pos>
 
     global insert_pos
 
+    INDENT = 4
+
     scr_max_pos = scr.getmaxyx()
-    max_pos = []
-    max_pos.append(scr_max_pos[0] - 1)
-    max_pos.append(scr_max_pos[1] - 1)
+    max_pos = [scr_max_pos[0] - 1, scr_max_pos[1] - 1]
+
+    pos = [y, INDENT * node_struct[0] + 2]
+    node = node_struct[1]
 
     # <pos> is not outside of screen
     if not pos[0] >= max_pos[0] or pos[1] >= max_pos[1]:
@@ -96,6 +113,17 @@ def __draw_node(scr, node, pos):
 
                 else:
                     insert_pos = [scr.getmaxyx()[0] - 1, scr.getmaxyx()[1] - 1]
+
+def __generate_node_list(node, node_list, indent_level):
+    # Generate a list of nodes and their indent_level
+    
+    # Add self to node_list
+    node_list.append([indent_level, node])
+
+    # Node has children and they should be in node_list
+    if (node.expanded or __node_in_path(node, index)) and len(node.children) > 0:
+        for child in node.children:
+            __generate_node_list(child, node_list, indent_level + 1)
 
 def __draw_mode(scr):
     # Draw modename
