@@ -109,7 +109,7 @@ def save_notebooks():
     json_notebook_list = []
 
     for notebook in notebook_list:
-        notebook_dictionary = {"name": notebook.name, "mother": __dictionaryfy_node(notebook.mother)}
+        notebook_dictionary = {"name": notebook.name, "mother": __dictionaryfy_node(notebook.mother), "index": notebook.index}
         json_notebook_list.append(notebook_dictionary)
 
     f.write(json.dumps(json_notebook_list))
@@ -125,6 +125,10 @@ def __load_notebooks():
     for notebook_dictionary in json_notebook_list:
         notebook = Notebook(notebook_dictionary["name"], __nodeify_dictionary(notebook_dictionary["mother"]))
         notebook.mother.expanded = True
+
+        if "index" in notebook_dictionary:
+            notebook.index = notebook_dictionary["index"]
+
         notebook_list.append(notebook)
 
 def __dictionaryfy_node(node):
