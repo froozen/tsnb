@@ -107,7 +107,7 @@ def __toggle_expand():
 def __edit_node():
     # Enter editing mode
     
-    from modes import editing
+    from modes.editing import editing
 
     notebook_editing_scene.mode = editing
     notebook_editing_scene.insert_index = len(notebook_editing_scene.__get_selected_node().name)

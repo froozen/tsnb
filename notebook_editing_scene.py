@@ -1,8 +1,8 @@
 import curses
 import math
 import notebooks
-from modes import browsing
-from modes import editing
+from modes.editing import browsing
+from modes.editing import editing
 
 notebook_id = 0
 index = [0]
