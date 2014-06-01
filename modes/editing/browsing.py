@@ -151,11 +151,11 @@ def __paste_node():
         if len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1 and notebook_editing_scene.__get_selected_node().name == "":
             notebook_editing_scene.__remove_selected_node()
 
-        else:
-            __index_scroll(1)
-
         # Insert deepcopy of clipboard
-        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1], copy.deepcopy(clipboard))
+        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1] + 1, copy.deepcopy(clipboard))
+
+        if not (len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1 and notebook_editing_scene.__get_selected_node().name == ""):
+            __index_scroll(1)
 
 def __yank_node():
     # Put deepcopy of node into clipboard
