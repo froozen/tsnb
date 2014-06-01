@@ -22,7 +22,7 @@ def init(scr):
 def redraw(scr):
     # Redraw the scene
 
-    scr.clear()
+    scr.erase()
     __draw_notebooks(scr)
     __draw_mode(scr)
 

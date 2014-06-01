@@ -37,12 +37,15 @@ def handle_input(scr, c):
 
         notebooks.notebook_list.append(notebooks.Notebook("", notebooks.Node()))
         notebook_selection_scene.index = len(notebooks.notebook_list) - 1
+
+        from modes.selection import editing
         notebook_selection_scene.insert_index = len(notebook_selection_scene.__get_selected_notebook().name)
+        notebook_selection_scene.mode = editing
 
     elif c in [ord("d"), 330]: #Delete key
         # Delete selected notebook
 
-        notebooks.notebook_list.pop(index)
+        notebooks.notebook_list.pop(notebook_selection_scene.index)
         if notebook_selection_scene.index == len(notebooks.notebook_list):
             notebook_selection_scene.index -= 1
 
