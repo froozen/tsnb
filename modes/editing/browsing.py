@@ -155,7 +155,7 @@ def __paste_node():
             __index_scroll(1)
 
         # Insert deepcopy of clipboard
-        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1] + 1, copy.deepcopy(clipboard))
+        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1], copy.deepcopy(clipboard))
 
 def __yank_node():
     # Put deepcopy of node into clipboard
