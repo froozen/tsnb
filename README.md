@@ -34,6 +34,8 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | Move down                | j   | Down   |
 | Move up in tree          | h   | Left   |
 | Move down in tree        | l   | Right  |
+| Move to first node       | g   |        |
+| Move to last node        | G   |        |
 | Toggle node              | t   | None   |
 | Edit node                | a   | Enter  |
 | New node                 | o   | n      |

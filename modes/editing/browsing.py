@@ -47,6 +47,12 @@ def handle_input(scr, c):
         notebooks.save_notebooks()
         scene_handler.scene = notebook_selection_scene
 
+    elif c == ord("g"):
+        __goto_first_node()
+
+    elif c == ord("G"):
+        __goto_last_node()
+
     elif c == ord("Q"):
         notebooks.save_notebooks()
         return False
@@ -164,3 +170,12 @@ def __save_notebooks():
 
     notebooks.save_notebooks()
     saved = True
+
+def __goto_first_node():
+    # Move index to first node
+    notebook_editing_scene.index[-1] = 0
+
+def __goto_last_node():
+    # Move index to last node
+    notebook_editing_scene.index[-1] = 0
+    notebook_editing_scene.index[-1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) - 1
