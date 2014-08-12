@@ -43,6 +43,7 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | Yank / Copy node         | y   |        |
 | Paste Node               | p   |        |
 | Save notebooks           | w   | F2     |
+| Undo last action         | u   |        |
 | Save notebooks           | s   | F2     |
 | Go to notebook selection |     | q      |
 | Quit tsnb                |     | Q      |

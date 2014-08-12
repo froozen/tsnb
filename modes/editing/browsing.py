@@ -8,9 +8,9 @@ from operator import attrgetter
 
 clipboard = 0
 saved = False
+last_states = [ 0, 0, 0]
 
 def handle_input(scr, c):
-
     if c in [ord("j"), curses.KEY_DOWN]:
         __index_scroll(1)
 
@@ -27,6 +27,8 @@ def handle_input(scr, c):
         __toggle_expand()
 
     elif c in [ord("a"), curses.KEY_ENTER, 10]:
+        # Back up current state
+        __push_onto_last_states ()
         __edit_node()
 
     elif c in [ord("o"), ord("n")]:
@@ -46,6 +48,9 @@ def handle_input(scr, c):
 
     elif c == ord("q"):
         notebooks.save_notebooks()
+        # Reset last_states
+        global last_states
+        last_states = [ 0, 0, 0 ]
         scene_handler.scene = notebook_selection_scene
 
     elif c == ord("g"):
@@ -56,6 +61,9 @@ def handle_input(scr, c):
 
     elif c == ord ( "s" ):
         __sort_elements ()
+
+    elif c == ord ( "u" ):
+        __undo ()
 
     elif c == ord("Q"):
         notebooks.save_notebooks()
@@ -68,6 +76,9 @@ def get_name():
 
 def draw_mode(scr):
     global saved
+
+    scr.move ( 0, 0 )
+    scr.addstr ( str ( len ( last_states ) ) )
 
     if saved:
         scr.move(0, 0)
@@ -125,6 +136,8 @@ def __edit_node():
 def __edit_new_node():
     # Add new node, if there is no temporary node and enter editing mode
 
+    # Back up current state
+    __push_onto_last_states ()
     # Node is not a temporary node
     if not (notebook_editing_scene.__get_selected_node().name == "" and len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1):
         # Add a new Node
@@ -137,6 +150,8 @@ def __delete_node():
     # Delete node and put it into clipboard
 
     global clipboard
+    # Back up current state
+    __push_onto_last_states ()
     clipboard = notebook_editing_scene.__remove_selected_node()
 
     # Last child was deleted
@@ -149,6 +164,8 @@ def __delete_node():
 def __paste_node():
     # Add deepcopy of clipboard
 
+    # Back up current state
+    __push_onto_last_states ()
     # clipboard is not empty(0) or error(-1)
     if not type(clipboard) == int:
         # Node is temporary node
@@ -177,13 +194,32 @@ def __save_notebooks():
 
 def __goto_first_node():
     # Move index to first node
+
     notebook_editing_scene.index[-1] = 0
 
 def __goto_last_node():
     # Move index to last node
+
     notebook_editing_scene.index[-1] = 0
     notebook_editing_scene.index[-1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) - 1
 
 def __sort_elements ():
     # Sort the all the children of the parent of the current node
+
+    # Back up current state
+    __push_onto_last_states ()
     notebook_editing_scene.__get_node ( notebook_editing_scene.index [ : -1 ] ).children.sort ( key=attrgetter ( "name" ) )
+
+def __undo ():
+    # Undo the few last steps
+    if len ( last_states ) > 0:
+        if not last_states [ -1 ] == 0:
+            notebook_editing_scene.index = last_states [ -1 ].index
+            notebooks.notebook_list [ notebook_selection_scene.index ] = last_states.pop ()
+
+def __push_onto_last_states ():
+    # Push the current state onto last_states
+
+    last_states.append ( copy.deepcopy ( notebook_selection_scene.__get_selected_notebook () ) )
+    if len ( last_states ) > 3:
+        last_states.pop ( 0 )
