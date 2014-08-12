@@ -67,8 +67,8 @@ def __display_node_tree(scr):
             node_list = node_list[- max_node_count:]
 
         else:
-            node_list = node_list[selected_index - math.floor(max_node_count / 2) : selected_index + math.ceil(max_node_count / 2)]
-        
+            node_list = node_list[ int ( selected_index - math.floor(max_node_count / 2) ) : int ( selected_index + math.ceil(max_node_count / 2) ) ]
+
     y = 1
     for node_struct in node_list:
         __draw_node(scr, node_struct, y)
@@ -106,8 +106,8 @@ def __draw_node(scr, node_struct, y):
         if symb_len < space:
             scr.move(pos[0], pos[1])
             scr.addstr("%s " % node.get_symbol(), curses.color_pair(2))
-            __draw_node_name(scr, node.name[0:space - symb_len], node == __get_selected_node()) 
-            
+            __draw_node_name(scr, node.name[0:space - symb_len], node == __get_selected_node())
+
             # Node is selected_node and mode is editing
             if node == __get_selected_node() and mode == editing:
                 # Set insert_pos correctly
@@ -120,7 +120,7 @@ def __draw_node(scr, node_struct, y):
 
 def __generate_node_list(node, node_list, indent_level):
     # Generate a list of nodes and their indent_level
-    
+
     # Add self to node_list
     node_list.append([indent_level, node])
 
@@ -153,7 +153,7 @@ def __node_in_path(node, path):
     for i in range(1, len(path)):
         if __get_node(path[0:i]) == node:
             return True
-    
+
     return False
 
 def __remove_selected_node():
