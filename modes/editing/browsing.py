@@ -4,6 +4,7 @@ import notebooks
 import curses
 import scene_handler
 import copy
+from operator import attrgetter
 
 clipboard = 0
 saved = False
@@ -52,6 +53,9 @@ def handle_input(scr, c):
 
     elif c == ord("G"):
         __goto_last_node()
+
+    elif c == ord ( "s" ):
+        __sort_elements ()
 
     elif c == ord("Q"):
         notebooks.save_notebooks()
@@ -179,3 +183,7 @@ def __goto_last_node():
     # Move index to last node
     notebook_editing_scene.index[-1] = 0
     notebook_editing_scene.index[-1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) - 1
+
+def __sort_elements ():
+    # Sort the all the children of the parent of the current node
+    notebook_editing_scene.__get_node ( notebook_editing_scene.index [ : -1 ] ).children.sort ( key=attrgetter ( "name" ) )
