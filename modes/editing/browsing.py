@@ -77,12 +77,9 @@ def get_name():
 def draw_mode(scr):
     global saved
 
-    scr.move ( 0, 0 )
-    scr.addstr ( str ( len ( last_states ) ) )
-
     if saved:
         scr.move(0, 0)
-        save_str = (" Saved notebooks to %s" % notebooks.file_path)[:scr.getmaxyx()[0] - 1]
+        save_str = (" Saved notebooks to %s" % notebooks.file_path)[:scr.getmaxyx()[1]]
         scr.addstr(save_str, curses.color_pair(2))
         notebook_editing_scene.__place_cursor(scr)
         saved = False
