@@ -22,6 +22,9 @@ def handle_input(scr, c, editing_state):
     elif c == curses.KEY_RIGHT:
         move_cursor(editing_state, 1)
 
+    elif c == 23: # Ctrl + w
+        remove_word ( editing_state )
+
     elif c in [27, curses.KEY_ENTER, 10]: #Escape and enter
         exit(editing_state)
 
@@ -57,3 +60,19 @@ def exit(editing_state):
 
     editing_state.exit = True
 
+def remove_word ( editing_state ):
+    # Delete word before index ( similliar to i_c-W in vim )
+
+    if len ( editing_state.name ) > 0:
+        if ( editing_state.name [ editing_state.index - 1 ] == " " ):
+            remove_previous_character ( editing_state )
+        relevant_words = editing_state.name [ : editing_state.index ].split ( " " )
+        relevant_words.pop ()
+
+        if len ( relevant_words ) > 0:
+            relevant_words = " ".join ( relevant_words )
+        else:
+            relevant_words = ""
+
+        editing_state.name = relevant_words + editing_state.name [ editing_state.index : ]
+        editing_state.index = len ( relevant_words )
