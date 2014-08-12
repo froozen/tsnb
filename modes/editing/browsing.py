@@ -40,7 +40,7 @@ def handle_input(scr, c):
     elif c == ord("y"):
         __yank_node()
 
-    elif c in [ord("s"), curses.KEY_F2]:
+    elif c in [ord("w"), curses.KEY_F2]:
         __save_notebooks()
 
     elif c == ord("q"):
