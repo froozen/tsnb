@@ -123,7 +123,7 @@ def __load_notebooks():
     try:
         json_notebook_list = json.loads(f.read())
     except ValueError:
-        print "Error: Couldn't parse file: %s" % file_path
+        print ( "Error: Couldn't parse file: %s" % file_path )
         exit ()
 
     for notebook_dictionary in json_notebook_list:
