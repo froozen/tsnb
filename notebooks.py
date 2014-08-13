@@ -120,7 +120,11 @@ def __load_notebooks():
 
     f = open(file_path, "r")
 
-    json_notebook_list = json.loads(f.read())
+    try:
+        json_notebook_list = json.loads(f.read())
+    except ValueError:
+        print "Error: Couldn't parse file: %s" % file_path
+        exit ()
 
     for notebook_dictionary in json_notebook_list:
         notebook = Notebook(notebook_dictionary["name"], __nodeify_dictionary(notebook_dictionary["mother"]))
