@@ -7,7 +7,7 @@ from modes.selection import editing
 index = 0
 insert_index = -1
 insert_pos = []
-mode = 0
+mode = browsing
 
 def handle_input(scr, c):
     ret = mode.handle_input(scr, c)
@@ -15,9 +15,7 @@ def handle_input(scr, c):
     return ret
 
 def init(scr):
-    global mode
-
-    mode = browsing
+    pass
 
 def redraw(scr):
     # Redraw the scene
