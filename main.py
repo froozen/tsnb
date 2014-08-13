@@ -43,5 +43,4 @@ if __name__ == "__main__":
     args = sys.argv[1:len(sys.argv)]
     parsed_args = args_parser.parse(args)
 
-    if not parsed_args.failed:
-        curses.wrapper(tsnb, parsed_args)
+    curses.wrapper(tsnb, parsed_args)
