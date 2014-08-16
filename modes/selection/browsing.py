@@ -35,8 +35,8 @@ def handle_input(scr, c):
     elif c in [ord("o"), ord("n")]:
         # Create new Notebook
 
-        notebooks.notebook_list.append(notebooks.Notebook("", notebooks.Node()))
-        notebook_selection_scene.index = len(notebooks.notebook_list) - 1
+        notebooks.notebook_list.insert ( notebook_selection_scene.index + 1, notebooks.Notebook("", notebooks.Node()))
+        notebook_selection_scene.index += 1
 
         from modes.selection import editing
         notebook_selection_scene.insert_index = len(notebook_selection_scene.__get_selected_notebook().name)

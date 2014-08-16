@@ -138,8 +138,8 @@ def __edit_new_node():
     # Node is not a temporary node
     if not (notebook_editing_scene.__get_selected_node().name == "" and len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1):
         # Add a new Node
-        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.append(notebooks.Node(""))
-        notebook_editing_scene.index[-1] = len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) - 1
+        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert ( notebook_editing_scene.index [ -1 ] + 1, notebooks.Node(""))
+        notebook_editing_scene.index[-1] += 1
 
     __edit_node()
 
