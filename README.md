@@ -8,7 +8,7 @@ To install and run tsnb, run the following:
 
     git clone https://github.com/froozen/tsnb.git
     cd tsnb
-    python main.py    
+    python main.py
 
 ## Keybinds
 
@@ -16,15 +16,16 @@ For most of the actions there is a vim-like and a "normal" keybind.
 
 ### Notebook selection
 
-| Action              | vim | normal |
-| :------------------ | --: | -----: |
-| Move up             | k   | Up     |
-| Move down           | j   | Down   |
-| Open notebook       | l   | Right  |
-| Edit name           | a   | Enter  |
-| New notebook        | o   | n      |
-| Delete notebook     | d   | Del    |
-| Quit tsnb           |     | q      |
+| Action                        | vim | normal |
+| :---------------------------- | --: | -----: |
+| Move up                       | k   | Up     |
+| Move down                     | j   | Down   |
+| Open notebook                 | l   | Right  |
+| Edit name                     | a   | Enter  |
+| New notebook below the cursor | o   | n      |
+| New notebook above the cursor | o   | n      |
+| Delete notebook               | d   | Del    |
+| Quit tsnb                     |     | q      |
 
 ### Notebook editing
 
@@ -38,7 +39,8 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | Move to last node        | G   |        |
 | Toggle node              | t   | None   |
 | Edit node                | a   | Enter  |
-| New node                 | o   | n      |
+| New node below the cursor| o   | n      |
+| New node above the curosr| O   | N      |
 | Delete / Cut node        | d   | Del    |
 | Yank / Copy node         | y   |        |
 | Paste Node               | p   |        |

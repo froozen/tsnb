@@ -32,7 +32,10 @@ def handle_input(scr, c):
         __edit_node()
 
     elif c in [ord("o"), ord("n")]:
-        __edit_new_node()
+        __edit_new_node_below()
+
+    elif c in [ ord ( "O" ), ord ( "N" ) ]:
+        __edit_new_node_above ()
 
     elif c in [ord("d"), 330]: #Delete key
         __delete_node()
@@ -130,8 +133,8 @@ def __edit_node():
     notebook_editing_scene.mode = editing
     notebook_editing_scene.insert_index = len(notebook_editing_scene.__get_selected_node().name)
 
-def __edit_new_node():
-    # Add new node, if there is no temporary node and enter editing mode
+def __edit_new_node_below():
+    # Add new node below the cursor, if there is no temporary node and enter editing mode
 
     # Back up current state
     __push_onto_last_states ()
@@ -140,6 +143,18 @@ def __edit_new_node():
         # Add a new Node
         notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert ( notebook_editing_scene.index [ -1 ] + 1, notebooks.Node(""))
         notebook_editing_scene.index[-1] += 1
+
+    __edit_node()
+
+def __edit_new_node_above():
+    # Add new node above the cursor, if there is no temporary node and enter editing mode
+
+    # Back up current state
+    __push_onto_last_states ()
+    # Node is not a temporary node
+    if not (notebook_editing_scene.__get_selected_node().name == "" and len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1):
+        # Add a new Node
+        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert ( notebook_editing_scene.index [ -1 ], notebooks.Node(""))
 
     __edit_node()
 

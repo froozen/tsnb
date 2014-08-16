@@ -42,6 +42,15 @@ def handle_input(scr, c):
         notebook_selection_scene.insert_index = len(notebook_selection_scene.__get_selected_notebook().name)
         notebook_selection_scene.mode = editing
 
+    elif c in [ord("O"), ord("N")]:
+        # Create new Notebook below the curosr
+
+        notebooks.notebook_list.insert ( notebook_selection_scene.index, notebooks.Notebook("", notebooks.Node()))
+
+        from modes.selection import editing
+        notebook_selection_scene.insert_index = len(notebook_selection_scene.__get_selected_notebook().name)
+        notebook_selection_scene.mode = editing
+
     elif c in [ord("d"), 330]: #Delete key
         # Delete selected notebook
 
