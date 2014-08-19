@@ -23,7 +23,7 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | Open notebook                 | l   | Right  |
 | Edit name                     | a   | Enter  |
 | New notebook below the cursor | o   | n      |
-| New notebook above the cursor | o   | n      |
+| New notebook above the cursor | O   | N      |
 | Delete notebook               | d   | Del    |
 | Quit tsnb                     |     | q      |
 
@@ -37,16 +37,16 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | Move down in tree        | l   | Right  |
 | Move to first node       | g   |        |
 | Move to last node        | G   |        |
-| Toggle node              | t   | None   |
+| Toggle node              | t   |        |
 | Edit node                | a   | Enter  |
 | New node below the cursor| o   | n      |
 | New node above the curosr| O   | N      |
 | Delete / Cut node        | d   | Del    |
 | Yank / Copy node         | y   |        |
 | Paste Node               | p   |        |
+| Sort sibling nodes       | s   |        |
 | Save notebooks           | w   | F2     |
 | Undo last action         | u   |        |
-| Save notebooks           | s   | F2     |
 | Go to notebook selection |     | q      |
 | Quit tsnb                |     | Q      |
 
