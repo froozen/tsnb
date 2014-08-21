@@ -70,7 +70,7 @@ def remove_word ( editing_state ):
         relevant_words.pop ()
 
         if len ( relevant_words ) > 0:
-            relevant_words = " ".join ( relevant_words )
+            relevant_words = " ".join ( relevant_words ) + " "
         else:
             relevant_words = ""
 
