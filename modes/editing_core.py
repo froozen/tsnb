@@ -28,6 +28,12 @@ def handle_input(scr, c, editing_state):
     elif c in [27, curses.KEY_ENTER, 10]: #Escape and enter
         exit(editing_state)
 
+    elif c in [ curses.KEY_HOME, 1 ]: # Ctrl + a
+        editing_state.index = 0
+
+    elif c in [ curses.KEY_END, 5 ]: # Ctrl + e
+        editing_state.index = len ( editing_state.name )
+
     return editing_state
 
 def insert_character(editing_state, c):
