@@ -43,7 +43,8 @@ For most of the actions there is a vim-like and a "normal" keybind.
 | New node above the curosr| O   | N      |
 | Delete / Cut node        | d   | Del    |
 | Yank / Copy node         | y   |        |
-| Paste Node               | p   |        |
+| Paste Node below cursor  | p   |        |
+| Paste Node above cursor  | P   |        |
 | Sort sibling nodes       | s   |        |
 | Save notebooks           | w   | F2     |
 | Undo last action         | u   |        |

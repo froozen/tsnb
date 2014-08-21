@@ -41,7 +41,10 @@ def handle_input(scr, c):
         __delete_node()
 
     elif c == ord("p"):
-        __paste_node()
+        __paste_node( notebook_editing_scene.index [ - 1 ] + 1 )
+
+    elif c == ord("P"):
+        __paste_node( notebook_editing_scene.index [ - 1 ] )
 
     elif c == ord("y"):
         __yank_node()
@@ -173,7 +176,7 @@ def __delete_node():
     else:
         __index_scroll(-1)
 
-def __paste_node():
+def __paste_node( insert_index ):
     # Add deepcopy of clipboard
 
     # Back up current state
@@ -185,10 +188,10 @@ def __paste_node():
             notebook_editing_scene.__remove_selected_node()
 
         # Insert deepcopy of clipboard
-        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert(notebook_editing_scene.index[-1] + 1, copy.deepcopy(clipboard))
+        notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert( insert_index, copy.deepcopy(clipboard))
 
         if not (len(notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children) == 1 and notebook_editing_scene.__get_selected_node().name == ""):
-            __index_scroll(1)
+            __index_scroll( insert_index - notebook_editing_scene.index [ -1 ] )
 
 def __yank_node():
     # Put deepcopy of node into clipboard
