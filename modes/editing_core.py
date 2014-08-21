@@ -34,6 +34,9 @@ def handle_input(scr, c, editing_state):
     elif c in [ curses.KEY_END, 5 ]: # Ctrl + e
         editing_state.index = len ( editing_state.name )
 
+    elif c == 21: # Ctrl + u
+        delete_to_beginning ( editing_state )
+
     return editing_state
 
 def insert_character(editing_state, c):
@@ -82,3 +85,9 @@ def remove_word ( editing_state ):
 
         editing_state.name = relevant_words + editing_state.name [ editing_state.index : ]
         editing_state.index = len ( relevant_words )
+
+def delete_to_beginning ( editing_state ):
+    # Delete to the beginning of the line
+
+    editing_state.name = editing_state.name [ editing_state.index : ]
+    editing_state.index = 0
