@@ -29,27 +29,28 @@ For most of the actions there is a vim-like and a "normal" keybind.
 
 ### Notebook editing
 
-| Action                   | vim | normal |
-| :----------------------- | --: | -----: |
-| Move up                  | k   | Up     |
-| Move down                | j   | Down   |
-| Move up in tree          | h   | Left   |
-| Move down in tree        | l   | Right  |
-| Move to first node       | g   |        |
-| Move to last node        | G   |        |
-| Toggle node              | t   |        |
-| Edit node                | a   | Enter  |
-| New node below the cursor| o   | n      |
-| New node above the curosr| O   | N      |
-| Delete / Cut node        | d   | Del    |
-| Yank / Copy node         | y   |        |
-| Paste Node below cursor  | p   |        |
-| Paste Node above cursor  | P   |        |
-| Sort sibling nodes       | s   |        |
-| Save notebooks           | w   | F2     |
-| Undo last action         | u   |        |
-| Go to notebook selection |     | q      |
-| Quit tsnb                |     | Q      |
+| Action                        | vim | normal |
+| :---------------------------- | --: | -----: |
+| Move up                       | k   | Up     |
+| Move down                     | j   | Down   |
+| Move up in tree               | h   | Left   |
+| Move down in tree             | l   | Right  |
+| Move to first node            | g   |        |
+| Move to last node             | G   |        |
+| Toggle node                   | t   |        |
+| Edit node from at back        | A   | Enter  |
+| Edit the not at the beginning | I   |        |
+| New node below the cursor     | o   | n      |
+| New node above the curosr     | O   | N      |
+| Delete / Cut node             | d   | Del    |
+| Yank / Copy node              | y   |        |
+| Paste Node below cursor       | p   |        |
+| Paste Node above cursor       | P   |        |
+| Sort sibling nodes            | s   |        |
+| Save notebooks                | w   | F2     |
+| Undo last action              | u   |        |
+| Go to notebook selection      |     | q      |
+| Quit tsnb                     |     | Q      |
 
 ## Commandline options
 

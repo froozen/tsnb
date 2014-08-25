@@ -26,10 +26,16 @@ def handle_input(scr, c):
     elif c == ord("t"):
         __toggle_expand()
 
-    elif c in [ord("a"), curses.KEY_ENTER, 10]:
+    elif c in [ord("A"), curses.KEY_ENTER, 10]:
         # Back up current state
         __push_onto_last_states ()
-        __edit_node()
+        __edit_node( len ( notebook_editing_scene.__get_selected_node ().name ) )
+
+    elif c == ord ( "I" ):
+        # Back up current state
+        __push_onto_last_states ()
+        __edit_node( 0 )
+
 
     elif c in [ord("o"), ord("n")]:
         __edit_new_node_below()
@@ -128,13 +134,13 @@ def __toggle_expand():
 
     notebook_editing_scene.__get_selected_node().expanded = not notebook_editing_scene.__get_selected_node().expanded 
 
-def __edit_node():
+def __edit_node( index ):
     # Enter editing mode
     
     from modes.editing import editing
 
     notebook_editing_scene.mode = editing
-    notebook_editing_scene.insert_index = len(notebook_editing_scene.__get_selected_node().name)
+    notebook_editing_scene.insert_index = index
 
 def __edit_new_node_below():
     # Add new node below the cursor, if there is no temporary node and enter editing mode
@@ -147,7 +153,7 @@ def __edit_new_node_below():
         notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert ( notebook_editing_scene.index [ -1 ] + 1, notebooks.Node(""))
         notebook_editing_scene.index[-1] += 1
 
-    __edit_node()
+    __edit_node( len ( notebook_editing_scene.__get_selected_node ().name ) )
 
 def __edit_new_node_above():
     # Add new node above the cursor, if there is no temporary node and enter editing mode
@@ -159,7 +165,7 @@ def __edit_new_node_above():
         # Add a new Node
         notebook_editing_scene.__get_node(notebook_editing_scene.index[:-1]).children.insert ( notebook_editing_scene.index [ -1 ], notebooks.Node(""))
 
-    __edit_node()
+    __edit_node( len ( notebook_editing_scene.__get_selected_node ().name ) )
 
 def __delete_node():
     # Delete node and put it into clipboard
