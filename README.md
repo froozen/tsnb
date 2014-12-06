@@ -1,8 +1,11 @@
 # tsnb
 
+![Screenshot of the notebook editing screen](https://i.imgur.com/56aLOoi.png)
+
 tsnb (tree-style notebook) is a programm written in python using the curses-library for its interface. It aims to provide a pleasant notetaking experience by providing a tree-style format and vim-like keybinds.
 
 ## Installation
+**NOTE**: This program will only work on operating systems that support curses. (No windows support)
 
 To install and run tsnb, run the following:
 
